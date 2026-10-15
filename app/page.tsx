@@ -15,7 +15,7 @@ export default async function HomePage() {
   return (
     <>
       <JsonLd data={faqJsonLd()} />
-      <Hero image={gallery[0]} />
+      <Hero image={gallery[1] ?? gallery[0]} />
       <ProgramsGrid />
       <PhilosophyQuote />
       <MethodologyTeaser />
