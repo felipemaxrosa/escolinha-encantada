@@ -1,14 +1,20 @@
 import Link from "next/link";
-import { home } from "@/content/home";
 import { site } from "@/content/site";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ImagePlaceholder } from "@/components/media/image-placeholder";
 import { SanityImage } from "@/components/media/sanity-image";
-import type { GalleryItem } from "@/sanity/queries";
+import type { ImageSource } from "@/sanity/image";
 
-export function Hero({ image }: { image?: GalleryItem }) {
+interface HeroProps {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  image?: { image: ImageSource; alt: string };
+}
+
+export function Hero({ eyebrow, title, subtitle, image }: HeroProps) {
   return (
     <section className="relative overflow-hidden">
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
@@ -19,13 +25,9 @@ export function Hero({ image }: { image?: GalleryItem }) {
 
       <Container className="grid items-center gap-10 py-16 md:grid-cols-2 md:py-24">
         <div className="flex flex-col items-start gap-6">
-          <Badge tone="accent">{home.hero.eyebrow}</Badge>
-          <h1 className="text-5xl text-balance md:text-6xl">
-            {home.hero.title}
-          </h1>
-          <p className="max-w-xl text-lg text-ink-soft">
-            {home.hero.subtitle}
-          </p>
+          <Badge tone="accent">{eyebrow}</Badge>
+          <h1 className="text-5xl text-balance md:text-6xl">{title}</h1>
+          <p className="max-w-xl text-lg text-ink-soft">{subtitle}</p>
           <div className="flex flex-wrap gap-3">
             <Button asChild size="lg">
               <Link href={site.cta.href}>{site.cta.label}</Link>
