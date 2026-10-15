@@ -28,6 +28,12 @@ const toneBadge = {
   secondary: "secondary",
 } as const;
 
+const toneMarker = {
+  primary: "marker:text-primary-600",
+  mint: "marker:text-mint-600",
+  secondary: "marker:text-secondary-600",
+} as const;
+
 export default function ProgramasPage() {
   return (
     <>
@@ -57,13 +63,15 @@ export default function ProgramasPage() {
                 {p.tagline}
               </p>
               <p className="text-ink-soft">{p.summary}</p>
-              <ul className="space-y-2">
+              <ul
+                className={cn(
+                  "list-disc space-y-2 pl-5 marker:text-lg",
+                  toneMarker[p.tone],
+                )}
+              >
                 {p.highlights.map((h) => (
-                  <li key={h} className="flex items-start gap-2">
-                    <span className={cn("mt-1 font-bold", toneText[p.tone])}>
-                      •
-                    </span>
-                    <span>{h}</span>
+                  <li key={h} className="pl-1">
+                    {h}
                   </li>
                 ))}
               </ul>

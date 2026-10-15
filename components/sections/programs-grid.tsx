@@ -8,9 +8,9 @@ import { Reveal } from "@/components/motion/reveal";
 import { cn } from "@/lib/utils";
 
 const toneStyles = {
-  primary: { card: "bg-primary-100/60", chip: "bg-primary-600 text-white", dot: "text-primary-600" },
-  mint: { card: "bg-mint-100/60", chip: "bg-mint-600 text-white", dot: "text-mint-600" },
-  secondary: { card: "bg-secondary-100/60", chip: "bg-secondary-600 text-white", dot: "text-secondary-600" },
+  primary: { card: "bg-primary-100/60", chip: "bg-primary-600 text-white", marker: "marker:text-primary-600" },
+  mint: { card: "bg-mint-100/60", chip: "bg-mint-600 text-white", marker: "marker:text-mint-600" },
+  secondary: { card: "bg-secondary-100/60", chip: "bg-secondary-600 text-white", marker: "marker:text-secondary-600" },
 } as const;
 
 export function ProgramsGrid() {
@@ -45,11 +45,15 @@ export function ProgramsGrid() {
                   </span>
                   <h3 className="text-2xl">{p.name}</h3>
                   <p className="text-ink-soft">{p.summary}</p>
-                  <ul className="mt-auto space-y-2 pt-2">
+                  <ul
+                    className={cn(
+                      "mt-auto list-disc space-y-2 pt-2 pl-5 text-sm",
+                      t.marker,
+                    )}
+                  >
                     {p.highlights.map((h) => (
-                      <li key={h} className="flex items-start gap-2 text-sm">
-                        <span className={cn("mt-0.5 font-bold", t.dot)}>•</span>
-                        <span>{h}</span>
+                      <li key={h} className="pl-1">
+                        {h}
                       </li>
                     ))}
                   </ul>
