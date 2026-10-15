@@ -1,11 +1,12 @@
-import { Sparkles } from "lucide-react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
   className?: string;
 }
 
-/** Wordmark temporário (recriação limpa refinada na Task 7 — brand). */
+/** Wordmark da marca: peças de puzzle + nome "Escolinha Encantada".
+ *  A imagem é decorativa (aria-hidden) — o texto ao lado já nomeia a marca. */
 export function Logo({ className }: LogoProps) {
   return (
     <span
@@ -14,7 +15,15 @@ export function Logo({ className }: LogoProps) {
         className,
       )}
     >
-      <Sparkles className="size-6 text-primary-600" aria-hidden />
+      <Image
+        src="/logo-mark.png"
+        alt=""
+        aria-hidden
+        width={144}
+        height={144}
+        loading="eager"
+        className="h-[1.4em] w-auto shrink-0 select-none"
+      />
       <span>
         Escolinha <span className="text-primary-600">Encantada</span>
       </span>
