@@ -44,6 +44,9 @@ next-env.d.ts
 # superpowers (ledger / scratch — local only, not part of the project)
 .superpowers/
 
+# sanity dev runtime cache
+.sanity/
+
 # test artifacts (Playwright, added later)
 /test-results/
 /playwright-report/
