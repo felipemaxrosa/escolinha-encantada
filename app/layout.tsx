@@ -19,7 +19,10 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Escolinha Encantada",
+  title: {
+    default: "Escolinha Encantada — Creche e Pré-escolar em Coimbra",
+    template: "%s | Escolinha Encantada",
+  },
   description:
     "Creche, berçário e pré-escolar no centro de Coimbra desde 1994.",
 };
