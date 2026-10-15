@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ─────────────── Design tokens — "Encantado moderno" ───────────────
+   Light-only. Pastéis para superfícies; tons 600/700 para preenchimentos
+   interativos (texto branco só sobre 600/700 — ver contraste validado).
+   Matiz-assinatura por programa: coral=Berçário, menta=Creche, lavanda=Pré-escolar. */
+@theme {
+  /* Neutros (quentes) */
+  --color-cream: #fff9f3; /* fundo da página */
+  --color-surface: #ffffff; /* cards */
+  --color-ink: #2e2a27; /* texto (13.6:1 no cream) */
+  --color-ink-soft: #6b5e54; /* texto secundário (6:1) */
+
+  /* Primária — Coral/Pêssego · Berçário */
+  --color-primary-100: #ffe4da;
+  --color-primary-300: #ffa78c;
+  --color-primary-500: #f26a43; /* decorativo / texto grande */
+  --color-primary-600: #ca4622; /* preenchimento CTA · branco 4.76:1 */
+  --color-primary-700: #b23d1f; /* hover · branco 5.87:1 */
+
+  /* Secundária — Lavanda · Pré-escolar */
+  --color-secondary-100: #ebe4fa;
+  --color-secondary-300: #c9b6ef;
+  --color-secondary-500: #8457d1; /* branco 4.92:1 */
+  --color-secondary-600: #6e42bc; /* branco 6.63:1 */
+
+  /* Menta/Sálvia · Creche */
+  --color-mint-100: #d2f4e1;
+  --color-mint-300: #9ce0bc;
+  --color-mint-500: #2a9e68; /* decorativo / texto grande */
+  --color-mint-600: #1f7e53; /* branco 5.04:1 */
+
+  /* Accent — Botão-de-ouro (só decoração/fundo; texto ink por cima) */
+  --color-accent-200: #ffe78a;
+  --color-accent-400: #fbc01c;
+
+  /* Semânticos */
+  --color-success: #1f7e53;
+  --color-error: #c23a33;
+
+  /* Sombras suaves e quentes */
+  --shadow-soft: 0 10px 30px -12px rgba(80, 50, 30, 0.18);
+  --shadow-card: 0 2px 12px -6px rgba(80, 50, 30, 0.14);
 }
 
+/* Fontes (wired a partir das variáveis do next/font no layout.tsx) */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-fredoka), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --focus-ring: var(--color-secondary-500);
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-fredoka), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
 }
