@@ -1,0 +1,258 @@
+[
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string",
+        "title": "Título"
+      },
+      {
+        "rows": 3,
+        "name": "subheading",
+        "type": "text",
+        "title": "Subtítulo"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "image",
+                "type": "image",
+                "title": "Imagem"
+              },
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "alt",
+                "type": "string",
+                "title": "Texto alternativo"
+              }
+            ],
+            "type": "object",
+            "name": "slide"
+          }
+        ],
+        "name": "slides",
+        "type": "array",
+        "title": "Slides do carrossel"
+      }
+    ],
+    "name": "homeHero",
+    "type": "document",
+    "title": "Hero da Home"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "image",
+        "type": "image",
+        "title": "Imagem"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "alt",
+        "type": "string",
+        "title": "Texto alternativo"
+      },
+      {
+        "initialValue": 0,
+        "name": "order",
+        "type": "number",
+        "title": "Ordem"
+      }
+    ],
+    "name": "galleryImage",
+    "type": "document",
+    "title": "Imagem da Galeria"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Nome"
+      },
+      {
+        "name": "role",
+        "type": "string",
+        "title": "Função"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "photo",
+        "type": "image",
+        "title": "Foto"
+      },
+      {
+        "rows": 3,
+        "name": "bio",
+        "type": "text",
+        "title": "Bio curta"
+      },
+      {
+        "initialValue": 0,
+        "name": "order",
+        "type": "number",
+        "title": "Ordem"
+      }
+    ],
+    "name": "teamMember",
+    "type": "document",
+    "title": "Membro da Equipa"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Título"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "image",
+        "type": "image",
+        "title": "Imagem"
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "title": "Legenda"
+      },
+      {
+        "initialValue": 0,
+        "name": "order",
+        "type": "number",
+        "title": "Ordem"
+      }
+    ],
+    "name": "facility",
+    "type": "document",
+    "title": "Instalação"
+  },
+  {
+    "fields": [
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "quote",
+        "type": "text",
+        "title": "Citação"
+      },
+      {
+        "name": "author",
+        "type": "string",
+        "title": "Autor"
+      },
+      {
+        "description": "Ex.: Mãe de uma criança da creche",
+        "name": "relation",
+        "type": "string",
+        "title": "Relação"
+      },
+      {
+        "initialValue": true,
+        "name": "isPlaceholder",
+        "type": "boolean",
+        "title": "É um exemplo?"
+      }
+    ],
+    "name": "testimonial",
+    "type": "document",
+    "title": "Depoimento"
+  }
+]
