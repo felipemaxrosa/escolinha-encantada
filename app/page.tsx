@@ -6,10 +6,13 @@ import { GalleryTeaser } from "@/components/sections/gallery-teaser";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Faq } from "@/components/sections/faq";
 import { CtaBand } from "@/components/sections/cta-band";
+import { JsonLd } from "@/components/json-ld";
+import { faqJsonLd } from "@/lib/seo";
 
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={faqJsonLd()} />
       <Hero />
       <ProgramsGrid />
       <PhilosophyQuote />
