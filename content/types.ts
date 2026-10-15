@@ -33,3 +33,55 @@ export interface SiteConfig {
   cta: NavItem;
   contact: Contact;
 }
+
+export type ProgramSlug = "bercario" | "creche" | "pre-escolar";
+export type ProgramTone = "primary" | "mint" | "secondary";
+
+export interface Program {
+  slug: ProgramSlug;
+  name: string;
+  ageBand: string;
+  tagline: string;
+  summary: string;
+  highlights: string[];
+  /** Matiz-assinatura do programa. */
+  tone: ProgramTone;
+}
+
+export interface MethodologyStep {
+  title: string;
+  description: string;
+}
+
+export interface Value {
+  title: string;
+  description: string;
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+export interface Testimonial {
+  quote: string;
+  author: string;
+  relation: string;
+  /** Marca citações de exemplo (trocar pelas reais). */
+  isPlaceholder?: boolean;
+}
+
+export interface HomeContent {
+  hero: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+  };
+  sections: {
+    programs: { title: string; intro: string };
+    methodology: { title: string; intro: string };
+    gallery: { title: string; intro: string };
+    testimonials: { title: string; intro: string };
+    faq: { title: string; intro: string };
+  };
+}
