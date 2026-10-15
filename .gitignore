@@ -47,6 +47,9 @@ next-env.d.ts
 # sanity dev runtime cache
 .sanity/
 
+# sanity studio build output (sanity build / deploy)
+/dist
+
 # test artifacts (Playwright, added later)
 /test-results/
 /playwright-report/
