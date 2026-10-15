@@ -41,6 +41,10 @@
   /* Sombras suaves e quentes */
   --shadow-soft: 0 10px 30px -12px rgba(80, 50, 30, 0.18);
   --shadow-card: 0 2px 12px -6px rgba(80, 50, 30, 0.14);
+
+  /* Animações (Radix accordion) */
+  --animate-accordion-down: accordion-down 0.22s ease-out;
+  --animate-accordion-up: accordion-up 0.22s ease-out;
 }
 
 /* Fontes (wired a partir das variáveis do next/font no layout.tsx) */
@@ -74,5 +78,35 @@
   :focus-visible {
     outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
+  }
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* Respeita utilizadores com movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
