@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type ChangeEvent } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2 } from "lucide-react";
 import {
@@ -22,7 +22,7 @@ export function EnrollmentForm() {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     setValue,
     formState: { errors },
   } = useForm<EnrollmentInput>({
@@ -30,7 +30,7 @@ export function EnrollmentForm() {
     defaultValues: { program: "creche", wantsVisit: false, consent: false },
   });
 
-  const wantsVisit = watch("wantsVisit");
+  const wantsVisit = useWatch({ control, name: "wantsVisit" });
 
   async function onSubmit(data: EnrollmentInput) {
     setStatus("submitting");
