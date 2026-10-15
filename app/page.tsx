@@ -8,16 +8,18 @@ import { Faq } from "@/components/sections/faq";
 import { CtaBand } from "@/components/sections/cta-band";
 import { JsonLd } from "@/components/json-ld";
 import { faqJsonLd } from "@/lib/seo";
+import { getGallery } from "@/sanity/queries";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const gallery = await getGallery();
   return (
     <>
       <JsonLd data={faqJsonLd()} />
-      <Hero />
+      <Hero image={gallery[0]} />
       <ProgramsGrid />
       <PhilosophyQuote />
       <MethodologyTeaser />
-      <GalleryTeaser />
+      <GalleryTeaser images={gallery} />
       <Testimonials />
       <Faq />
       <CtaBand />

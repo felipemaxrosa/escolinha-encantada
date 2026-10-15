@@ -5,8 +5,10 @@ import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ImagePlaceholder } from "@/components/media/image-placeholder";
+import { SanityImage } from "@/components/media/sanity-image";
+import type { GalleryItem } from "@/sanity/queries";
 
-export function Hero() {
+export function Hero({ image }: { image?: GalleryItem }) {
   return (
     <section className="relative overflow-hidden">
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
@@ -34,10 +36,22 @@ export function Hero() {
           </div>
         </div>
 
-        <ImagePlaceholder
-          className="aspect-[4/5] w-full rotate-1 md:aspect-square"
-          label="Crianças a brincar na Escolinha Encantada"
-        />
+        {image ? (
+          <SanityImage
+            image={image.image}
+            alt={image.alt}
+            width={720}
+            height={720}
+            priority
+            sizes="(min-width:768px) 50vw, 100vw"
+            className="aspect-[4/5] w-full rotate-1 rounded-3xl object-cover shadow-soft md:aspect-square"
+          />
+        ) : (
+          <ImagePlaceholder
+            className="aspect-[4/5] w-full rotate-1 md:aspect-square"
+            label="Crianças a brincar na Escolinha Encantada"
+          />
+        )}
       </Container>
     </section>
   );

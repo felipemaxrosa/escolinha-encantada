@@ -4,8 +4,12 @@ import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { ImagePlaceholder } from "@/components/media/image-placeholder";
+import { SanityImage } from "@/components/media/sanity-image";
+import type { GalleryItem } from "@/sanity/queries";
 
-export function GalleryTeaser() {
+export function GalleryTeaser({ images }: { images: GalleryItem[] }) {
+  const preview = images.slice(0, 6);
+
   return (
     <Section tone="mint">
       <Container>
@@ -17,9 +21,21 @@ export function GalleryTeaser() {
         </div>
 
         <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <ImagePlaceholder key={i} className="aspect-square" />
-          ))}
+          {preview.length > 0
+            ? preview.map((img) => (
+                <SanityImage
+                  key={img._id}
+                  image={img.image}
+                  alt={img.alt}
+                  width={500}
+                  height={500}
+                  sizes="(min-width:768px) 33vw, 50vw"
+                  className="aspect-square w-full rounded-3xl object-cover shadow-card"
+                />
+              ))
+            : Array.from({ length: 6 }).map((_, i) => (
+                <ImagePlaceholder key={i} className="aspect-square" />
+              ))}
         </div>
 
         <div className="mt-10 text-center">
