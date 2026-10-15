@@ -38,50 +38,64 @@ export interface HeroDoc {
   slides?: HeroSlide[];
 }
 
-// ISR com revalidação por tag (acionada pelo webhook do Sanity).
-const opts = (tags: string[]) => ({ next: { tags, revalidate: 60 } });
+/**
+ * Fetch resiliente: devolve `fallback` se o Sanity não estiver configurado
+ * ou se a chamada falhar (ex.: offline, TLS corporativo). O site/build nunca
+ * quebram por causa do CMS — caem para placeholders. ISR por tag.
+ */
+async function safeFetch<T>(
+  query: string,
+  tags: string[],
+  fallback: T,
+): Promise<T> {
+  if (!hasSanity) return fallback;
+  try {
+    return await client.fetch<T>(query, {}, { next: { tags, revalidate: 60 } });
+  } catch (error) {
+    console.warn(
+      `[sanity] fetch falhou (${tags.join(", ")}):`,
+      (error as Error).message,
+    );
+    return fallback;
+  }
+}
 
-export async function getHero(): Promise<HeroDoc | null> {
-  if (!hasSanity) return null;
-  return client.fetch(
+export function getHero(): Promise<HeroDoc | null> {
+  return safeFetch<HeroDoc | null>(
     groq`*[_type == "homeHero"][0]{heading, subheading, slides[]{alt, image}}`,
-    {},
-    opts(["hero"]),
+    ["hero"],
+    null,
   );
 }
 
-export async function getGallery(): Promise<GalleryItem[]> {
-  if (!hasSanity) return [];
-  return client.fetch(
+export function getGallery(): Promise<GalleryItem[]> {
+  return safeFetch<GalleryItem[]>(
     groq`*[_type == "galleryImage"]|order(order asc){_id, alt, image}`,
-    {},
-    opts(["gallery"]),
+    ["gallery"],
+    [],
   );
 }
 
-export async function getTeam(): Promise<TeamMemberItem[]> {
-  if (!hasSanity) return [];
-  return client.fetch(
+export function getTeam(): Promise<TeamMemberItem[]> {
+  return safeFetch<TeamMemberItem[]>(
     groq`*[_type == "teamMember"]|order(order asc){_id, name, role, bio, photo}`,
-    {},
-    opts(["team"]),
+    ["team"],
+    [],
   );
 }
 
-export async function getFacilities(): Promise<FacilityItem[]> {
-  if (!hasSanity) return [];
-  return client.fetch(
+export function getFacilities(): Promise<FacilityItem[]> {
+  return safeFetch<FacilityItem[]>(
     groq`*[_type == "facility"]|order(order asc){_id, title, caption, image}`,
-    {},
-    opts(["facilities"]),
+    ["facilities"],
+    [],
   );
 }
 
-export async function getTestimonials(): Promise<TestimonialItem[]> {
-  if (!hasSanity) return [];
-  return client.fetch(
+export function getTestimonials(): Promise<TestimonialItem[]> {
+  return safeFetch<TestimonialItem[]>(
     groq`*[_type == "testimonial"]|order(_createdAt asc){_id, quote, author, relation, isPlaceholder}`,
-    {},
-    opts(["testimonials"]),
+    ["testimonials"],
+    [],
   );
 }

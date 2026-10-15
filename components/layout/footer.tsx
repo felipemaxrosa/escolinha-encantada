@@ -46,6 +46,11 @@ export function Footer() {
               </li>
             ))}
             <li>
+              <Link href="/instalacoes" className="hover:text-primary-700">
+                Instalações
+              </Link>
+            </li>
+            <li>
               <Link href={site.cta.href} className="hover:text-primary-700">
                 {site.cta.label}
               </Link>
