@@ -58,6 +58,13 @@ export interface Value {
   description: string;
 }
 
+export interface MethodologyModel {
+  name: string;
+  blurb: string;
+  /** Faixa etária onde o modelo mais se faz sentir. */
+  ageTag: string;
+}
+
 export interface FaqItem {
   question: string;
   answer: string;

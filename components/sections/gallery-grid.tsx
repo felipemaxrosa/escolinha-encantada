@@ -1,18 +1,39 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import NextImage from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { urlFor } from "@/sanity/image";
 import type { GalleryItem } from "@/sanity/queries";
 
-export function GalleryGrid({ images }: { images: GalleryItem[] }) {
+export function GalleryGrid({
+  images,
+  pageSize,
+}: {
+  images: GalleryItem[];
+  /** Se definido e houver mais imagens, mostra paginação numerada. */
+  pageSize?: number;
+}) {
+  const [page, setPage] = useState(0);
+  // `index` é global (sobre todas as imagens) — o lightbox percorre tudo.
   const [index, setIndex] = useState<number | null>(null);
-  const open = index !== null;
+  const gridRef = useRef<HTMLUListElement>(null);
 
-  const close = useCallback(() => setIndex(null), []);
+  const pageCount = pageSize ? Math.ceil(images.length / pageSize) : 1;
+  const start = pageSize ? page * pageSize : 0;
+  const visible = pageSize ? images.slice(start, start + pageSize) : images;
+
+  const open = index !== null;
+  const close = useCallback(() => {
+    // Ao fechar, a grelha salta para a página da foto que estava a ser vista.
+    if (index !== null && pageSize) setPage(Math.floor(index / pageSize));
+    setIndex(null);
+  }, [index, pageSize]);
   const prev = useCallback(
-    () => setIndex((i) => (i === null ? i : (i + images.length - 1) % images.length)),
+    () =>
+      setIndex((i) =>
+        i === null ? i : (i + images.length - 1) % images.length,
+      ),
     [images.length],
   );
   const next = useCallback(
@@ -31,14 +52,23 @@ export function GalleryGrid({ images }: { images: GalleryItem[] }) {
     return () => document.removeEventListener("keydown", onKey);
   }, [open, close, prev, next]);
 
+  function goTo(p: number) {
+    setIndex(null);
+    setPage(p);
+    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   return (
     <>
-      <ul className="grid grid-cols-2 gap-3 md:grid-cols-3">
-        {images.map((img, i) => (
+      <ul
+        ref={gridRef}
+        className="grid scroll-mt-24 grid-cols-2 gap-3 md:grid-cols-3"
+      >
+        {visible.map((img, i) => (
           <li key={img._id}>
             <button
               type="button"
-              onClick={() => setIndex(i)}
+              onClick={() => setIndex(start + i)}
               className="group block w-full overflow-hidden rounded-2xl shadow-card"
             >
               <NextImage
@@ -53,6 +83,48 @@ export function GalleryGrid({ images }: { images: GalleryItem[] }) {
           </li>
         ))}
       </ul>
+
+      {pageCount > 1 && (
+        <nav
+          className="mt-10 flex flex-wrap items-center justify-center gap-2"
+          aria-label="Paginação"
+        >
+          <button
+            type="button"
+            onClick={() => goTo(Math.max(0, page - 1))}
+            disabled={page === 0}
+            aria-label="Página anterior"
+            className="inline-flex size-10 items-center justify-center rounded-full bg-surface text-ink shadow-card transition hover:bg-cream disabled:opacity-40 disabled:hover:bg-surface"
+          >
+            <ChevronLeft className="size-5" aria-hidden />
+          </button>
+          {Array.from({ length: pageCount }).map((_, p) => (
+            <button
+              key={p}
+              type="button"
+              onClick={() => goTo(p)}
+              aria-current={p === page ? "page" : undefined}
+              aria-label={`Página ${p + 1}`}
+              className={
+                p === page
+                  ? "inline-flex size-10 items-center justify-center rounded-full bg-primary-600 font-display font-semibold text-white"
+                  : "inline-flex size-10 items-center justify-center rounded-full bg-surface font-display text-ink shadow-card transition hover:bg-cream"
+              }
+            >
+              {p + 1}
+            </button>
+          ))}
+          <button
+            type="button"
+            onClick={() => goTo(Math.min(pageCount - 1, page + 1))}
+            disabled={page === pageCount - 1}
+            aria-label="Página seguinte"
+            className="inline-flex size-10 items-center justify-center rounded-full bg-surface text-ink shadow-card transition hover:bg-cream disabled:opacity-40 disabled:hover:bg-surface"
+          >
+            <ChevronRight className="size-5" aria-hidden />
+          </button>
+        </nav>
+      )}
 
       {open && index !== null && (
         <div
@@ -81,14 +153,20 @@ export function GalleryGrid({ images }: { images: GalleryItem[] }) {
           >
             <ChevronLeft className="size-7" aria-hidden />
           </button>
-          <NextImage
-            src={urlFor(images[index].image).width(1400).height(1050).fit("max").auto("format").url()}
-            alt={images[index].alt}
-            width={1400}
-            height={1050}
-            className="max-h-[85vh] w-auto rounded-2xl object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
+          <figure className="flex max-h-[88vh] flex-col items-center gap-3">
+            <NextImage
+              src={urlFor(images[index].image).width(1600).height(1600).fit("max").auto("format").url()}
+              alt={images[index].alt}
+              width={1600}
+              height={1600}
+              sizes="90vw"
+              className="max-h-[82vh] w-auto rounded-2xl object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <figcaption className="rounded-full bg-white/15 px-3 py-1 text-sm text-white/90">
+              {index + 1} / {images.length}
+            </figcaption>
+          </figure>
           <button
             type="button"
             aria-label="Imagem seguinte"

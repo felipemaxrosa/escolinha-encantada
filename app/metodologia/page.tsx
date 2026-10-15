@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   methodologyIntro,
+  methodologyModels,
+  methodologyModelsIntro,
   methodologySteps,
   values,
 } from "@/content/methodology";
@@ -49,6 +51,26 @@ export default function MetodologiaPage() {
       </Section>
 
       <Section>
+        <Container>
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl">Uma abordagem que reúne vários modelos</h2>
+            <p className="mt-3 text-ink-soft">{methodologyModelsIntro}</p>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {methodologyModels.map((m, i) => (
+              <Reveal key={m.name} delay={i * 0.1}>
+                <div className="flex h-full flex-col items-start gap-3 rounded-3xl bg-surface p-7 shadow-card">
+                  <Badge tone="secondary">{m.ageTag}</Badge>
+                  <h3 className="text-xl">{m.name}</h3>
+                  <p className="text-ink-soft">{m.blurb}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      <Section tone="surface">
         <Container className="grid gap-10 md:grid-cols-2 md:items-center">
           <div className="space-y-4">
             <h2 className="text-3xl">A criança no centro</h2>
@@ -66,7 +88,7 @@ export default function MetodologiaPage() {
             {values.map((v) => (
               <div
                 key={v.title}
-                className="rounded-2xl bg-surface p-5 shadow-card"
+                className="rounded-2xl bg-cream p-5 shadow-card"
               >
                 <h3 className="text-base font-semibold">{v.title}</h3>
                 <p className="mt-1 text-sm text-ink-soft">{v.description}</p>

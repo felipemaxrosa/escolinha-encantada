@@ -1,7 +1,31 @@
-import type { MethodologyStep, Value } from "./types";
+import type { MethodologyModel, MethodologyStep, Value } from "./types";
 
 export const methodologyIntro =
-  "Inspiramo-nos no modelo High/Scope (EUA, 1962): as crianças aprendem melhor quando vivem experiências diretas e lhes dão sentido através da reflexão.";
+  "As crianças aprendem melhor quando vivem experiências diretas e lhes dão sentido através da reflexão. Por isso, a nossa prática reúne o melhor de vários modelos pedagógicos atuais.";
+
+export const methodologyModelsIntro =
+  "Não seguimos um método único: combinamos três abordagens de referência, ajustando-as a cada fase do crescimento.";
+
+export const methodologyModels: MethodologyModel[] = [
+  {
+    name: "High/Scope",
+    blurb:
+      "Aprendizagem pela ação, com o ciclo planear–fazer–rever: a criança decide o que vai fazer, explora com as próprias mãos e depois recorda e partilha o que viveu.",
+    ageTag: "Sobretudo na creche",
+  },
+  {
+    name: "Movimento da Escola Moderna",
+    blurb:
+      "Uma sala participada e democrática. Com mapas, planos e rotinas partilhadas, as crianças organizam o tempo, assumem responsabilidades e aprendem a viver em grupo.",
+    ageTag: "Sobretudo no pré-escolar",
+  },
+  {
+    name: "Trabalho por Projeto",
+    blurb:
+      "Partimos das perguntas e curiosidades das crianças para investigar temas em conjunto, cruzando linguagem, arte, movimento e descoberta.",
+    ageTag: "Sobretudo no pré-escolar",
+  },
+];
 
 export const methodologySteps: MethodologyStep[] = [
   {
