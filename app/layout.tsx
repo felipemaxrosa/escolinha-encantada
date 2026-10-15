@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Fredoka, Nunito } from "next/font/google";
 import "./globals.css";
+import { SkipLink } from "@/components/layout/skip-link";
+import { Nav } from "@/components/layout/nav";
+import { Footer } from "@/components/layout/footer";
+import { StickyMobileCta } from "@/components/layout/sticky-mobile-cta";
 
 const fredoka = Fredoka({
   variable: "--font-fredoka",
@@ -26,7 +30,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="pt-PT"
       className={`${fredoka.variable} ${nunito.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <SkipLink />
+        <Nav />
+        <main id="conteudo" className="flex-1">
+          {children}
+        </main>
+        <Footer />
+        <StickyMobileCta />
+      </body>
     </html>
   );
 }

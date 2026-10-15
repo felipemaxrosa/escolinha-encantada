@@ -45,6 +45,10 @@
   /* Animações (Radix accordion) */
   --animate-accordion-down: accordion-down 0.22s ease-out;
   --animate-accordion-up: accordion-up 0.22s ease-out;
+
+  /* Animações (menu móvel / dialog) */
+  --animate-overlay-in: overlay-in 0.2s ease-out;
+  --animate-panel-in: panel-in 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Fontes (wired a partir das variáveis do next/font no layout.tsx) */
@@ -96,6 +100,24 @@
   }
   to {
     height: 0;
+  }
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes panel-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
   }
 }
 
