@@ -170,6 +170,18 @@ async function seedImage(filename, order) {
   console.log(`  ✓ ${filename}`);
 }
 
+async function seedAboutVideo() {
+  await client.createOrReplace({
+    _id: "aboutVideo",
+    _type: "aboutVideo",
+    youtubeUrl: "https://www.youtube.com/watch?v=lt34WiGDjLE",
+    title: "A nossa história",
+    caption:
+      "Conheça a Escolinha Encantada — mais de três décadas a cuidar da infância, no centro de Coimbra.",
+  });
+  console.log("  ✓ vídeo da história");
+}
+
 async function main() {
   console.log(`A semear ${GALLERY.length} fotos de galeria em ${projectId}/${dataset}…`);
   for (let i = 0; i < GALLERY.length; i++) {
@@ -179,6 +191,8 @@ async function main() {
   for (let i = 0; i < FACILITIES.length; i++) {
     await seedFacility(FACILITIES[i], i);
   }
+  console.log("A semear o vídeo da história…");
+  await seedAboutVideo();
   console.log("Concluído.");
 }
 

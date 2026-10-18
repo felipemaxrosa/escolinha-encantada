@@ -5,6 +5,7 @@ import type { NextRequest } from "next/server";
 // _type do Sanity → páginas a revalidar quando o conteúdo é publicado.
 const PATHS_BY_TYPE: Record<string, string[]> = {
   homeHero: ["/"],
+  aboutVideo: ["/"],
   galleryImage: ["/galeria", "/"],
   teamMember: ["/equipa"],
   facility: ["/instalacoes"],

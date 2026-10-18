@@ -6,13 +6,18 @@ import { GalleryTeaser } from "@/components/sections/gallery-teaser";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Faq } from "@/components/sections/faq";
 import { CtaBand } from "@/components/sections/cta-band";
+import { StoryVideo } from "@/components/sections/story-video";
 import { JsonLd } from "@/components/json-ld";
 import { faqJsonLd } from "@/lib/seo";
-import { getGallery, getHero } from "@/sanity/queries";
+import { getGallery, getHero, getAboutVideo } from "@/sanity/queries";
 import { home } from "@/content/home";
 
 export default async function HomePage() {
-  const [gallery, hero] = await Promise.all([getGallery(), getHero()]);
+  const [gallery, hero, aboutVideo] = await Promise.all([
+    getGallery(),
+    getHero(),
+    getAboutVideo(),
+  ]);
   return (
     <>
       <JsonLd data={faqJsonLd()} />
@@ -28,6 +33,14 @@ export default async function HomePage() {
       <GalleryTeaser images={gallery} />
       <Testimonials />
       <Faq />
+      {aboutVideo?.youtubeUrl && (
+        <StoryVideo
+          url={aboutVideo.youtubeUrl}
+          title={aboutVideo.title}
+          caption={aboutVideo.caption}
+          poster={aboutVideo.poster}
+        />
+      )}
       <CtaBand />
     </>
   );

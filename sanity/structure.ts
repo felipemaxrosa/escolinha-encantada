@@ -9,6 +9,10 @@ export const structure: StructureResolver = (S) =>
         .title("Hero da Home")
         .id("homeHero")
         .child(S.document().schemaType("homeHero").documentId("homeHero")),
+      S.listItem()
+        .title("Vídeo da história")
+        .id("aboutVideo")
+        .child(S.document().schemaType("aboutVideo").documentId("aboutVideo")),
       S.divider(),
       S.documentTypeListItem("galleryImage").title("Galeria"),
       S.documentTypeListItem("teamMember").title("Equipa"),

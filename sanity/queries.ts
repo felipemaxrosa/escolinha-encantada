@@ -37,6 +37,12 @@ export interface HeroDoc {
   subheading?: string;
   slides?: HeroSlide[];
 }
+export interface AboutVideo {
+  youtubeUrl: string;
+  title?: string;
+  caption?: string;
+  poster?: ImageSource;
+}
 
 /**
  * Fetch resiliente: devolve `fallback` se o Sanity não estiver configurado
@@ -64,6 +70,14 @@ export function getHero(): Promise<HeroDoc | null> {
   return safeFetch<HeroDoc | null>(
     groq`*[_type == "homeHero"][0]{heading, subheading, slides[]{alt, image}}`,
     ["hero"],
+    null,
+  );
+}
+
+export function getAboutVideo(): Promise<AboutVideo | null> {
+  return safeFetch<AboutVideo | null>(
+    groq`*[_type == "aboutVideo"][0]{youtubeUrl, title, caption, poster}`,
+    ["aboutVideo"],
     null,
   );
 }
