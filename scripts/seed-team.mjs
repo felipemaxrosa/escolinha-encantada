@@ -7,6 +7,12 @@
 // A Cláudia (fundadora) é gerida à parte (já tem foto + detalhes) e não entra aqui.
 
 import { createClient } from "@sanity/client";
+import { readFileSync } from "node:fs";
+
+// Formação por pessoa (colhida das páginas de detalhe do site antigo).
+const details = JSON.parse(
+  readFileSync(new URL("./team-details.json", import.meta.url), "utf8"),
+);
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
@@ -56,10 +62,12 @@ async function main() {
 
   for (const m of TEAM) {
     const photo = await uploadPhoto(m.photo);
+    const quals = details[m.name]?.quals;
+    const qf = quals ? { qualifications: quals } : {};
     const existingId = byName.get(m.name.trim().toLowerCase());
     if (existingId) {
-      await client.patch(existingId).set({ photo, order: m.order }).commit();
-      console.log(`  ~ ${m.name} (atualizado: foto + ordem; função/bio mantidas)`);
+      await client.patch(existingId).set({ photo, order: m.order, ...qf }).commit();
+      console.log(`  ~ ${m.name} (atualizado: foto + ordem${quals ? " + formação" : ""})`);
     } else {
       await client.createOrReplace({
         _id: slug(m.name),
@@ -68,8 +76,9 @@ async function main() {
         role: m.role,
         order: m.order,
         photo,
+        ...qf,
       });
-      console.log(`  ✓ ${m.name} (criado)`);
+      console.log(`  ✓ ${m.name} (criado${quals ? " + formação" : ""})`);
     }
   }
   console.log("Concluído.");
