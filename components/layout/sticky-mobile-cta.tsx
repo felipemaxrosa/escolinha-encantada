@@ -1,8 +1,15 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Phone } from "lucide-react";
 import { site } from "@/content/site";
 
 export function StickyMobileCta() {
+  const pathname = usePathname();
+  // Na própria página de inscrição, o botão "Inscrição" apontaria para a
+  // página atual — redundante. Mostramos só "Ligar" (largura total).
+  const onEnrollPage = pathname === site.cta.href;
   const tel = `+351${site.contact.mobile.replace(/\s/g, "")}`;
 
   return (
@@ -13,12 +20,14 @@ export function StickyMobileCta() {
       >
         <Phone className="size-5" aria-hidden /> Ligar
       </a>
-      <Link
-        href={site.cta.href}
-        className="inline-flex h-12 flex-[1.4] items-center justify-center rounded-full bg-primary-600 font-semibold text-white"
-      >
-        {site.cta.label}
-      </Link>
+      {!onEnrollPage && (
+        <Link
+          href={site.cta.href}
+          className="inline-flex h-12 flex-[1.4] items-center justify-center rounded-full bg-primary-600 font-semibold text-white"
+        >
+          {site.cta.label}
+        </Link>
+      )}
     </div>
   );
 }
