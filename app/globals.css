@@ -83,6 +83,19 @@
     outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
   }
+
+  /* Inputs de data/mês nativos: respeitar a largura do contentor — no iOS
+     Safari renderiam mais largos que o espaço disponível — e alinhar o valor
+     à esquerda, como os restantes campos. */
+  input[type="date"],
+  input[type="month"] {
+    min-width: 0;
+  }
+
+  input[type="date"]::-webkit-date-and-time-value,
+  input[type="month"]::-webkit-date-and-time-value {
+    text-align: left;
+  }
 }
 
 @keyframes accordion-down {
