@@ -13,6 +13,8 @@ export interface TeamMemberItem {
   name: string;
   role?: string;
   bio?: string;
+  fullBio?: string;
+  qualifications?: string[];
   photo?: ImageSource;
 }
 export interface FacilityItem {
@@ -92,7 +94,7 @@ export function getGallery(): Promise<GalleryItem[]> {
 
 export function getTeam(): Promise<TeamMemberItem[]> {
   return safeFetch<TeamMemberItem[]>(
-    groq`*[_type == "teamMember"]|order(order asc){_id, name, role, bio, photo}`,
+    groq`*[_type == "teamMember"]|order(order asc){_id, name, role, bio, fullBio, qualifications, photo}`,
     ["team"],
     [],
   );
