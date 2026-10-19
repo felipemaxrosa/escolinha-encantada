@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Proposta — Escolinha Encantada</title>
+<meta name="description" content="Proposta do novo site da Escolinha Encantada: demonstração, conteúdo editável sem código e condições.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;500;600;700&display=swap">
+<style>
+  /* Proposta de uma página, com a identidade da Escolinha Encantada —
+     bandas quentes creme/branco, coral, menta, lavanda. */
+  :root {
+    color-scheme: light;
+    --cream: #fff9f3;
+    --surface: #ffffff;
+    --raised: #fffdfb;
+    --ink: #2e2a27;
+    --ink-soft: #6b5e54;
+    --line: rgba(80, 50, 30, 0.12);
+    --primary: #ca4622;
+    --mint: #1f7e53;
+    --lavanda: #6e42bc;
+    --gold: #fbc01c;
+    --btn-bg: #ca4622;
+    --btn-fg: #ffffff;
+    --chip: #ffe4da;
+    --chip-ink: #b23d1f;
+    --shadow: 0 10px 30px -12px rgba(80, 50, 30, 0.18);
+    --card: 0 2px 12px -6px rgba(80, 50, 30, 0.14);
+    --font-display: "Fredoka", "Trebuchet MS", sans-serif;
+    --font-body: "Nunito", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --cream: #1f1915;
+      --surface: #2a221d;
+      --raised: #322822;
+      --ink: #f4ece4;
+      --ink-soft: #c6b7aa;
+      --line: rgba(255, 240, 230, 0.14);
+      --primary: #ff8a63;
+      --mint: #5fd39b;
+      --lavanda: #cbb8f0;
+      --gold: #f6cf4f;
+      --chip: #3a2419;
+      --chip-ink: #ffb79c;
+      --shadow: 0 16px 42px -18px rgba(0, 0, 0, 0.65);
+      --card: 0 2px 14px -8px rgba(0, 0, 0, 0.55);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --cream: #1f1915;
+    --surface: #2a221d;
+    --raised: #322822;
+    --ink: #f4ece4;
+    --ink-soft: #c6b7aa;
+    --line: rgba(255, 240, 230, 0.14);
+    --primary: #ff8a63;
+    --mint: #5fd39b;
+    --lavanda: #cbb8f0;
+    --gold: #f6cf4f;
+    --chip: #3a2419;
+    --chip-ink: #ffb79c;
+    --shadow: 0 16px 42px -18px rgba(0, 0, 0, 0.65);
+    --card: 0 2px 14px -8px rgba(0, 0, 0, 0.55);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0;
+  }
+  p { margin: 0; }
+  a { color: inherit; }
+
+  .wrap {
+    width: 100%;
+    max-width: 70rem;
+    margin-inline: auto;
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+  .band { padding-block: clamp(2.75rem, 6vw, 4.75rem); }
+  .band--surface { background: var(--surface); }
+  .narrow { max-width: 54rem; }
+
+  .eyebrow {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--chip-ink);
+    background: var(--chip);
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+  }
+
+  /* ---- Hero ---- */
+  .hero { padding-block: clamp(3rem, 8vw, 6rem); }
+  .dots { display: flex; gap: 0.4rem; margin-bottom: 1.4rem; }
+  .dots span { width: 0.85rem; height: 0.85rem; border-radius: 4px; display: block; }
+  .hero h1 {
+    font-size: clamp(2.3rem, 6vw, 3.9rem);
+    font-weight: 700;
+    margin-top: 1.1rem;
+    max-width: 18ch;
+  }
+  .hero p.lead {
+    margin-top: 1.1rem;
+    max-width: 46ch;
+    font-size: 1.2rem;
+    color: var(--ink-soft);
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 1.9rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.02rem;
+    text-decoration: none;
+    border-radius: 999px;
+    padding: 0.8rem 1.5rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn--primary { background: var(--btn-bg); color: var(--btn-fg); box-shadow: var(--shadow); }
+  .btn--ghost { border: 1.5px solid var(--line); color: var(--ink); background: var(--surface); }
+  .btn:hover { transform: translateY(-2px); }
+  .hero .hint { margin-top: 0.9rem; font-size: 0.92rem; color: var(--ink-soft); }
+
+  /* ---- Section head ---- */
+  .sec-head { margin-bottom: 1.9rem; }
+  .sec-head h2 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); font-weight: 700; margin-top: 0.7rem; }
+  .sec-head p { margin-top: 0.7rem; color: var(--ink-soft); max-width: 52ch; }
+
+  /* ---- Benefit cards ---- */
+  .grid { display: grid; gap: 1rem; }
+  .cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .card {
+    background: var(--raised);
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+    padding: 1.4rem;
+    box-shadow: var(--card);
+    min-width: 0;
+  }
+  .card h3 { font-size: 1.18rem; font-weight: 600; margin-bottom: 0.35rem; }
+  .card p { color: var(--ink-soft); font-size: 0.98rem; }
+  .tag {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ---- Editable content ---- */
+  .edit-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; margin-top: 1.5rem; }
+  .edit {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    padding: 1.1rem 1.2rem;
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+    min-width: 0;
+  }
+  .edit .mark { flex: none; width: 0.65rem; height: 0.65rem; border-radius: 3px; margin-top: 0.5rem; }
+  .edit h3 { font-size: 1.05rem; font-weight: 700; }
+  .edit p { color: var(--ink-soft); font-size: 0.95rem; margin-top: 0.15rem; }
+
+  .note {
+    margin-top: 1.4rem;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    border-left: 3px solid var(--line);
+    padding-left: 1rem;
+  }
+
+  /* ---- Features ---- */
+  .feats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.55rem 2rem; margin-top: 1.3rem; }
+  .feat { display: flex; gap: 0.7rem; align-items: baseline; padding-block: 0.3rem; }
+  .feat .chk { color: var(--mint); font-weight: 700; flex: none; }
+
+  /* ---- Planos (pricing) ---- */
+  .plans { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1.5rem; align-items: start; }
+  .plan {
+    position: relative;
+    background: var(--raised);
+    border: 1px solid var(--line);
+    border-radius: 1.5rem;
+    box-shadow: var(--card);
+    padding: 1.7rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    min-width: 0;
+  }
+  .plan--featured { border: 2px solid var(--primary); box-shadow: var(--shadow); }
+  .plan .ribbon {
+    position: absolute;
+    top: -0.8rem;
+    left: 1.5rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--btn-fg);
+    background: var(--btn-bg);
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+  }
+  .plan .pname { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; }
+  .plan .amount { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.1rem, 5vw, 2.9rem); color: var(--primary); line-height: 1; }
+  .plan .per { font-size: 0.98rem; font-weight: 600; color: var(--ink-soft); margin-top: 0.35rem; }
+  .plan-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+  .plan-list li { display: flex; gap: 0.55rem; align-items: baseline; font-size: 0.95rem; color: var(--ink-soft); }
+  .plan-list .chk { color: var(--mint); font-weight: 700; flex: none; }
+  .plan-list .no { color: var(--ink-soft); opacity: 0.7; flex: none; }
+
+  .why {
+    margin-top: 1.3rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+    padding: 1.4rem 1.5rem;
+  }
+  .why h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .why p { color: var(--ink-soft); font-size: 0.97rem; }
+  .why p + p { margin-top: 0.7rem; }
+  .fineprint { margin-top: 1rem; color: var(--ink-soft); font-size: 0.9rem; }
+
+  /* ---- Steps ---- */
+  .steps { display: grid; gap: 0.8rem; margin-top: 1.5rem; counter-reset: step; }
+  .step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    padding: 1rem 1.2rem;
+  }
+  .step .n {
+    counter-increment: step;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--btn-fg);
+    background: var(--btn-bg);
+    width: 2rem; height: 2rem; border-radius: 999px;
+    display: grid; place-items: center;
+    flex: none;
+  }
+  .step .n::before { content: counter(step); }
+  .step h3 { font-size: 1.05rem; font-weight: 700; }
+  .step p { color: var(--ink-soft); font-size: 0.95rem; margin-top: 0.1rem; }
+
+  /* ---- Need-from-you ---- */
+  .need { list-style: none; display: grid; gap: 0.6rem; margin-top: 1.3rem; margin: 1.3rem 0 0; padding: 0; }
+  .need li { display: flex; gap: 0.7rem; align-items: baseline; }
+  .need .dot { color: var(--lavanda); font-weight: 700; flex: none; }
+
+  /* ---- Footer ---- */
+  .foot { background: var(--surface); border-top: 1px solid var(--line); }
+  .foot .wrap { padding-block: 2.2rem; }
+  .brand { display: flex; align-items: center; gap: 0.6rem; font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; }
+  .brand .pz { display: inline-grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .brand .pz i { width: 0.5rem; height: 0.5rem; border-radius: 2px; }
+  .foot p { color: var(--ink-soft); font-size: 0.95rem; margin-top: 0.6rem; }
+  .foot .edit-me { color: var(--primary); font-weight: 600; }
+
+  @media (max-width: 640px) {
+    .cols-4, .edit-grid, .feats, .plans { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== HERO ===================== -->
+<header class="band hero">
+  <div class="wrap">
+    <div class="dots" aria-hidden="true">
+      <span style="background:var(--primary)"></span>
+      <span style="background:var(--gold)"></span>
+      <span style="background:var(--mint)"></span>
+      <span style="background:var(--lavanda)"></span>
+    </div>
+    <span class="eyebrow">Proposta · Novo site</span>
+    <h1>Um novo site para a Escolinha&nbsp;Encantada</h1>
+    <p class="lead">Moderno, rápido e pensado nos pais que procuram creche em Coimbra — e que a escola pode manter atualizado sozinha, sem código.</p>
+    <div class="cta-row">
+      <a class="btn btn--primary" href="https://escolinha-encantada.vercel.app" target="_blank" rel="noopener">Ver a demonstração →</a>
+      <a class="btn btn--ghost" href="https://escolinha-encantada.vercel.app/inscricao" target="_blank" rel="noopener">Experimentar a inscrição</a>
+    </div>
+    <p class="hint">Abre em escolinha-encantada.vercel.app · experimente também no telemóvel.</p>
+  </div>
+</header>
+
+<!-- ===================== O QUE MUDA ===================== -->
+<section class="band band--surface">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Porque mudar</span>
+      <h2>O que melhora face ao site atual</h2>
+      <p>O mesmo conteúdo e identidade da escola, numa experiência ao nível do que as famílias esperam hoje.</p>
+    </div>
+    <div class="grid cols-4">
+      <div class="card"><span class="tag" style="color:var(--primary)">Imagem</span><h3>Moderno e rápido</h3><p>Design atual, carregamento quase imediato e visual cuidado em todas as páginas.</p></div>
+      <div class="card"><span class="tag" style="color:var(--mint)">Telemóvel</span><h3>Pensado para o telemóvel</h3><p>A maioria dos pais pesquisa no telemóvel — o site é desenhado primeiro para esse ecrã.</p></div>
+      <div class="card"><span class="tag" style="color:var(--lavanda)">Google</span><h3>Encontrável em Coimbra</h3><p>Preparado para o SEO local: "creche Coimbra", "berçário Arregaça" e afins.</p></div>
+      <div class="card"><span class="tag" style="color:var(--gold)">Contacto</span><h3>Inscrições diretas</h3><p>Formulário de inscrição que envia o pedido por email, sem nada a instalar.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EDITÁVEL ===================== -->
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">A grande diferença</span>
+      <h2>Editável por si, sem código</h2>
+      <p>A escola recebe o seu próprio <strong>painel de edição</strong> (um link protegido por palavra-passe). Altera lá fotos e textos, carrega em guardar, e o site atualiza-se sozinho em segundos. Isto é o que já pode editar hoje:</p>
+    </div>
+    <div class="edit-grid">
+      <div class="edit"><span class="mark" style="background:var(--primary)"></span><div><h3>Página inicial (hero)</h3><p>Título, subtítulo e as imagens de destaque.</p></div></div>
+      <div class="edit"><span class="mark" style="background:var(--mint)"></span><div><h3>Programas</h3><p>Berçário, Creche e Pré-escolar: nome, idade, descrição, destaques, cor e imagem.</p></div></div>
+      <div class="edit"><span class="mark" style="background:var(--lavanda)"></span><div><h3>Equipa</h3><p>Cada pessoa: nome, função, foto, bio e a formação que aparece no perfil.</p></div></div>
+      <div class="edit"><span class="mark" style="background:var(--gold)"></span><div><h3>Galeria</h3><p>Fotos do dia a dia, com legendas e ordem à sua escolha.</p></div></div>
+      <div class="edit"><span class="mark" style="background:var(--primary)"></span><div><h3>Instalações</h3><p>Fotos dos espaços e das salas, com títulos e legendas.</p></div></div>
+      <div class="edit"><span class="mark" style="background:var(--mint)"></span><div><h3>Vídeo da história</h3><p>Link do YouTube, título, legenda e imagem de capa.</p></div></div>
+      <div class="edit"><span class="mark" style="background:var(--lavanda)"></span><div><h3>Perguntas frequentes</h3><p>Perguntas e respostas — adicionar, editar e reordenar.</p></div></div>
+      <div class="edit"><span class="mark" style="background:var(--gold)"></span><div><h3>Depoimentos</h3><p>Testemunhos das famílias, quando os quiserem publicar.</p></div></div>
+    </div>
+    <p class="note">Edições feitas no painel refletem-se no site em segundos. Elementos estruturais (contactos, morada, textos de metodologia e SEO de base) ficam a nosso cargo, para nada partir por engano.</p>
+  </div>
+</section>
+
+<!-- ===================== JÁ INCLUÍDO ===================== -->
+<section class="band band--surface">
+  <div class="wrap narrow">
+    <div class="sec-head">
+      <span class="eyebrow">O que está incluído</span>
+      <h2>Tudo pronto desde o primeiro dia</h2>
+    </div>
+    <div class="feats">
+      <div class="feat"><span class="chk">✓</span><span>7 páginas (início, programas, metodologia, equipa, galeria, instalações, inscrição)</span></div>
+      <div class="feat"><span class="chk">✓</span><span>Galeria com visor de imagens e paginação</span></div>
+      <div class="feat"><span class="chk">✓</span><span>Perfis da equipa com detalhes e formação</span></div>
+      <div class="feat"><span class="chk">✓</span><span>Formulário de inscrição funcional (por email)</span></div>
+      <div class="feat"><span class="chk">✓</span><span>Otimização para o Google (SEO local + partilha)</span></div>
+      <div class="feat"><span class="chk">✓</span><span>Responsivo e acessível, em português</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== INVESTIMENTO ===================== -->
+<section class="band">
+  <div class="wrap narrow">
+    <div class="sec-head">
+      <span class="eyebrow">Investimento</span>
+      <h2>Escolha o que fizer mais sentido</h2>
+      <p>Dois caminhos para o mesmo site. A diferença está em quem trata da parte técnica depois de estar no ar.</p>
+    </div>
+
+    <div class="plans">
+      <div class="plan plan--featured">
+        <span class="ribbon">Recomendado</span>
+        <div class="pname">Com acompanhamento</div>
+        <div>
+          <div class="amount">1.000&nbsp;€</div>
+          <div class="per">+ 35&nbsp;€/mês</div>
+        </div>
+        <ul class="plan-list">
+          <li><span class="chk">✓</span><span>Desenho e construção das 7 páginas + painel de edição</span></li>
+          <li><span class="chk">✓</span><span>Domínio e alojamento tratados por nós</span></li>
+          <li><span class="chk">✓</span><span>Email das inscrições incluído (envio fiável, domínio próprio)</span></li>
+          <li><span class="chk">✓</span><span>Atualizações de segurança e pequenas correções</span></li>
+          <li><span class="chk">✓</span><span>Apoio sempre que surgir uma dúvida</span></li>
+          <li><span class="chk">✓</span><span>Painel editável sempre disponível</span></li>
+        </ul>
+      </div>
+
+      <div class="plan">
+        <div class="pname">Entrega única</div>
+        <div>
+          <div class="amount">1.250&nbsp;€</div>
+          <div class="per">pagamento único</div>
+        </div>
+        <ul class="plan-list">
+          <li><span class="chk">✓</span><span>Desenho e construção das 7 páginas + painel de edição</span></li>
+          <li><span class="chk">✓</span><span>Site entregue a funcionar, pronto a usar</span></li>
+          <li><span class="no">—</span><span>Sem mensalidade</span></li>
+          <li><span class="no">—</span><span>Domínio, alojamento e apoio por conta da escola</span></li>
+          <li><span class="no">—</span><span>Serviço de email das inscrições por conta da escola</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="why">
+      <h3>Porquê o acompanhamento mensal?</h3>
+      <p>Um site não acaba no desenho. Depois de no ar, há coisas que têm de continuar a funcionar: o <strong>domínio</strong> (registo e renovação), o <strong>alojamento</strong>, o <strong>email das inscrições</strong>, as <strong>atualizações de segurança</strong>, pequenas <strong>correções</strong> e o <strong>apoio</strong> quando surge uma dúvida — além do <strong>painel de edição</strong> sempre operacional.</p>
+      <p>Com o plano mensal, tratamos disto tudo por si: a escola só tem de se preocupar com as crianças. Na entrega única, o site fica a funcionar, mas essa manutenção (domínio, alojamento e apoio técnico) passa a ser da responsabilidade da escola.</p>
+    </div>
+
+    <p class="fineprint">O envio de emails das inscrições está incluído no volume normal de uma escola; só com utilização muito elevada haveria um plano pago (~20&nbsp;$/mês). Domínio próprio (ex.: escolinhaencantada.pt) à parte, cerca de 10–15&nbsp;€/ano. Sem custos escondidos.</p>
+  </div>
+</section>
+
+<!-- ===================== PRÓXIMOS PASSOS ===================== -->
+<section class="band band--surface">
+  <div class="wrap narrow">
+    <div class="sec-head">
+      <span class="eyebrow">Próximos passos</span>
+      <h2>Como avançamos</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="n"></span><div><h3>Aceitação e arranque</h3><p>Confirmamos o plano escolhido e damos início.</p></div></div>
+      <div class="step"><span class="n"></span><div><h3>Domínio</h3><p>Apontamos o domínio da escola ao novo site (precisamos de acesso ao domínio/registo atual).</p></div></div>
+      <div class="step"><span class="n"></span><div><h3>Inscrições</h3><p>As inscrições passam a chegar ao email da escola (escolinhaencantada@hotmail.com).</p></div></div>
+      <div class="step"><span class="n"></span><div><h3>Formação</h3><p>Mostramos como editar no painel — cerca de 30 minutos, é simples.</p></div></div>
+      <div class="step"><span class="n"></span><div><h3>No ar</h3><p>Publicação final e site a funcionar no domínio da escola.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRECISAMOS DE SI ===================== -->
+<section class="band">
+  <div class="wrap narrow">
+    <div class="sec-head">
+      <span class="eyebrow">Da vossa parte</span>
+      <h2>O que precisamos de si</h2>
+    </div>
+    <ul class="need">
+      <li><span class="dot">•</span><span><strong>Acesso ao domínio / site atual</strong>, para o apontar ao novo site.</span></li>
+      <li><span class="dot">•</span><span><strong>Email de destino</strong> das inscrições (ex.: escolinhaencantada@hotmail.com).</span></li>
+      <li><span class="dot">•</span><span><strong>Opcional:</strong> depoimentos reais de famílias e fotos/formação em falta de algum membro da equipa.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="brand">
+      <span class="pz" aria-hidden="true">
+        <i style="background:var(--primary)"></i><i style="background:var(--gold)"></i><i style="background:var(--lavanda)"></i><i style="background:var(--mint)"></i>
+      </span>
+      Escolinha Encantada
+    </div>
+    <p>Proposta preparada por <strong>Felipe Rosa</strong> · <a class="edit-me" href="mailto:felipemax.suporteti@gmail.com">felipemax.suporteti@gmail.com</a> · <a class="edit-me" href="tel:+351936212180">936&nbsp;212&nbsp;180</a></p>
+    <p>Demonstração: escolinha-encantada.vercel.app</p>
+  </div>
+</footer>
+
+</body>
+</html>
