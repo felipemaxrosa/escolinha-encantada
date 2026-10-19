@@ -15,7 +15,7 @@ Website moderno da **Escolinha Encantada** — creche, berçário e pré-escolar
 ## Destaques
 
 - **Server-first** — React Server Components por padrão; JavaScript no cliente só onde é preciso (navegação, formulário, galeria).
-- **Conteúdo editável sem código** — as fotos e textos-chave vivem no Sanity; a escola edita e o site atualiza sozinho (ISR).
+- **Conteúdo editável sem código** — hero, galeria, instalações, equipa, vídeo da história, programas, FAQ e depoimentos vivem no Sanity; a escola edita e o site atualiza sozinho (ISR), sempre com _fallback_ em código.
 - **Formulário de inscrição funcional** — um único schema `zod` valida cliente e servidor, com honeypot, _rate-limit_ por IP e envio do lead por email.
 - **SEO cuidado** — metadata única por página, dados estruturados JSON-LD (`ChildCare`, `FAQPage`), `sitemap`, `robots` e Open Graph.
 - **Acessível e responsivo** — contraste validado, navegável por teclado, respeita `prefers-reduced-motion`, _mobile-first_.
@@ -38,11 +38,11 @@ Website moderno da **Escolinha Encantada** — creche, berçário e pré-escolar
 
 Modelo híbrido — cada coisa no sítio certo:
 
-| No **Sanity** (a escola edita) | No **código** (`content/*.ts`, versionado) |
+| No **Sanity** (a escola edita) | No **código** (`content/*.ts`, _fallback_) |
 | --- | --- |
-| Hero da home · galeria · instalações · equipa · depoimentos | Navegação · contactos · programas · metodologia · FAQ · SEO |
+| Hero · galeria · instalações · equipa (+ detalhes) · vídeo da história · programas · FAQ · depoimentos | Navegação · contactos · metodologia · SEO base |
 
-Mover um campo do código para o Sanity mais tarde é trivial: criar o _schema_ e trocar a fonte da _query_.
+Cada secção editável tem _fallback_ em código (`content/*.ts`): se o Sanity estiver vazio ou indisponível, o site usa esse conteúdo e nunca quebra. Os _slugs_ dos programas e o tom de cor ficam em listas fixas, para não partir o formulário de inscrição nem as cores.
 
 ## Começar
 
@@ -89,10 +89,14 @@ pnpm exec sanity dev       # Studio local em http://localhost:3333
 pnpm exec sanity deploy    # publica em https://escolinha-encantada.sanity.studio
 ```
 
-**Seed de conteúdo** — povoa o dataset com as fotos reais (galeria + instalações), de forma idempotente:
+**Seed de conteúdo** — povoa o dataset de forma idempotente (requer `SANITY_API_WRITE_TOKEN`):
 
 ```bash
-node --env-file=.env.local scripts/seed-sanity.mjs   # requer SANITY_API_WRITE_TOKEN
+node --env-file=.env.local scripts/seed-sanity.mjs        # galeria + instalações + vídeo
+node --env-file=.env.local scripts/seed-team.mjs          # equipa (fotos + formação)
+node --env-file=.env.local scripts/seed-programs.mjs      # programas
+node --env-file=.env.local scripts/seed-faq.mjs           # FAQ
+node --env-file=.env.local scripts/seed-testimonials.mjs  # depoimentos
 ```
 
 ## Estrutura
