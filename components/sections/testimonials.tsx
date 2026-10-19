@@ -1,12 +1,13 @@
 import { Quote } from "lucide-react";
-import { testimonials } from "@/content/testimonials";
+import type { TestimonialItem } from "@/sanity/queries";
 import { home } from "@/content/home";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/motion/reveal";
 
-export function Testimonials() {
+export function Testimonials({ items }: { items: TestimonialItem[] }) {
+  if (items.length === 0) return null;
   return (
     <Section>
       <Container>
@@ -18,8 +19,8 @@ export function Testimonials() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {testimonials.map((t, i) => (
-            <Reveal key={i} delay={i * 0.1}>
+          {items.map((t, i) => (
+            <Reveal key={t._id} delay={i * 0.1}>
               <figure className="flex h-full flex-col gap-4 rounded-3xl bg-surface p-7 shadow-card">
                 <Quote className="size-8 text-primary-300" aria-hidden />
                 <blockquote className="flex-1 text-lg">{t.quote}</blockquote>

@@ -15,17 +15,20 @@ import {
   getAboutVideo,
   getFaqs,
   getPrograms,
+  getTestimonials,
 } from "@/sanity/queries";
 import { home } from "@/content/home";
 
 export default async function HomePage() {
-  const [gallery, hero, aboutVideo, faqs, programs] = await Promise.all([
-    getGallery(),
-    getHero(),
-    getAboutVideo(),
-    getFaqs(),
-    getPrograms(),
-  ]);
+  const [gallery, hero, aboutVideo, faqs, programs, testimonials] =
+    await Promise.all([
+      getGallery(),
+      getHero(),
+      getAboutVideo(),
+      getFaqs(),
+      getPrograms(),
+      getTestimonials(),
+    ]);
   return (
     <>
       <JsonLd data={faqJsonLd(faqs)} />
@@ -39,7 +42,7 @@ export default async function HomePage() {
       <PhilosophyQuote />
       <MethodologyTeaser />
       <GalleryTeaser images={gallery} />
-      <Testimonials />
+      <Testimonials items={testimonials} />
       <Faq items={faqs} />
       {aboutVideo?.youtubeUrl && (
         <StoryVideo

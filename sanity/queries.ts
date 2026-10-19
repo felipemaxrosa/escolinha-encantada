@@ -5,6 +5,7 @@ import type { ImageSource } from "./image";
 import type { Program } from "@/content/types";
 import { faq as faqFallback } from "@/content/faq";
 import { programs as programsFallback } from "@/content/programs";
+import { testimonials as testimonialsFallback } from "@/content/testimonials";
 
 export interface GalleryItem {
   _id: string;
@@ -136,10 +137,13 @@ export function getFacilities(): Promise<FacilityItem[]> {
   );
 }
 
-export function getTestimonials(): Promise<TestimonialItem[]> {
-  return safeFetch<TestimonialItem[]>(
+export async function getTestimonials(): Promise<TestimonialItem[]> {
+  const items = await safeFetch<TestimonialItem[]>(
     groq`*[_type == "testimonial"]|order(_createdAt asc){_id, quote, author, relation, isPlaceholder}`,
     ["testimonials"],
     [],
   );
+  return items.length
+    ? items
+    : testimonialsFallback.map((t, i) => ({ _id: `exemplo-${i}`, ...t }));
 }
