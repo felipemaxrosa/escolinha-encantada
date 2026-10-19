@@ -46,9 +46,11 @@ describe("enrollmentSchema", () => {
     ).toBe(false);
   });
 
-  it("rejeita programa desconhecido", () => {
+  // O programa passou de enum fixo para string (a lista válida vem do Sanity,
+  // via as opções do formulário); o schema exige apenas que não seja vazio.
+  it("rejeita programa vazio", () => {
     expect(
-      enrollmentSchema.safeParse({ ...valid, program: "universidade" }).success,
+      enrollmentSchema.safeParse({ ...valid, program: "" }).success,
     ).toBe(false);
   });
 });

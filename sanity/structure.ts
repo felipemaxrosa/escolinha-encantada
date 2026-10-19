@@ -14,6 +14,7 @@ export const structure: StructureResolver = (S) =>
         .id("aboutVideo")
         .child(S.document().schemaType("aboutVideo").documentId("aboutVideo")),
       S.divider(),
+      S.documentTypeListItem("program").title("Programas"),
       S.documentTypeListItem("galleryImage").title("Galeria"),
       S.documentTypeListItem("teamMember").title("Equipa"),
       S.documentTypeListItem("facility").title("Instalações"),

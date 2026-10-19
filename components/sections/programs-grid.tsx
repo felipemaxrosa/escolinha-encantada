@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { programs } from "@/content/programs";
+import type { ProgramItem } from "@/sanity/queries";
 import { home } from "@/content/home";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
@@ -13,7 +13,7 @@ const toneStyles = {
   secondary: { card: "bg-secondary-100/60", chip: "bg-secondary-600 text-white", marker: "marker:text-secondary-600" },
 } as const;
 
-export function ProgramsGrid() {
+export function ProgramsGrid({ programs }: { programs: ProgramItem[] }) {
   return (
     <Section>
       <Container>

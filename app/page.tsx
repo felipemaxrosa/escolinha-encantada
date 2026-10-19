@@ -9,15 +9,22 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { StoryVideo } from "@/components/sections/story-video";
 import { JsonLd } from "@/components/json-ld";
 import { faqJsonLd } from "@/lib/seo";
-import { getGallery, getHero, getAboutVideo, getFaqs } from "@/sanity/queries";
+import {
+  getGallery,
+  getHero,
+  getAboutVideo,
+  getFaqs,
+  getPrograms,
+} from "@/sanity/queries";
 import { home } from "@/content/home";
 
 export default async function HomePage() {
-  const [gallery, hero, aboutVideo, faqs] = await Promise.all([
+  const [gallery, hero, aboutVideo, faqs, programs] = await Promise.all([
     getGallery(),
     getHero(),
     getAboutVideo(),
     getFaqs(),
+    getPrograms(),
   ]);
   return (
     <>
@@ -28,7 +35,7 @@ export default async function HomePage() {
         subtitle={hero?.subheading || home.hero.subtitle}
         image={hero?.slides?.[0] ?? gallery[1] ?? gallery[0]}
       />
-      <ProgramsGrid />
+      <ProgramsGrid programs={programs} />
       <PhilosophyQuote />
       <MethodologyTeaser />
       <GalleryTeaser images={gallery} />

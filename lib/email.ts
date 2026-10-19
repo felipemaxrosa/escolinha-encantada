@@ -1,7 +1,7 @@
 import { Resend } from "resend";
 import type { EnrollmentInput } from "@/lib/validations/enrollment";
 
-const PROGRAM_LABELS: Record<EnrollmentInput["program"], string> = {
+const PROGRAM_LABELS: Record<string, string> = {
   bercario: "Berçário",
   creche: "Creche",
   "pre-escolar": "Pré-escolar",
@@ -20,7 +20,7 @@ export async function sendEnrollmentEmail(data: EnrollmentInput): Promise<void> 
   }
 
   const resend = new Resend(apiKey);
-  const program = PROGRAM_LABELS[data.program];
+  const program = PROGRAM_LABELS[data.program] ?? data.program;
 
   const { error } = await resend.emails.send({
     from: `Escolinha Encantada <${from}>`,

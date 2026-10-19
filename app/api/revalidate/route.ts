@@ -7,6 +7,7 @@ const PATHS_BY_TYPE: Record<string, string[]> = {
   homeHero: ["/"],
   aboutVideo: ["/"],
   faqItem: ["/"],
+  program: ["/", "/programas"],
   galleryImage: ["/galeria", "/"],
   teamMember: ["/equipa"],
   facility: ["/instalacoes"],

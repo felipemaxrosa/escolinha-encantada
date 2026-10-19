@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { programs } from "@/content/programs";
+import NextImage from "next/image";
+import { getPrograms } from "@/sanity/queries";
+import { urlFor } from "@/sanity/image";
 import { site } from "@/content/site";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
@@ -34,7 +36,8 @@ const toneMarker = {
   secondary: "marker:text-secondary-600",
 } as const;
 
-export default function ProgramasPage() {
+export default async function ProgramasPage() {
+  const programs = await getPrograms();
   return (
     <>
       <Section>
@@ -77,10 +80,21 @@ export default function ProgramasPage() {
               </ul>
             </div>
             <Reveal className={cn(i % 2 === 1 && "md:order-1")}>
-              <ImagePlaceholder
-                className="aspect-[4/3] w-full"
-                label={`${p.name} — Escolinha Encantada`}
-              />
+              {p.image ? (
+                <NextImage
+                  src={urlFor(p.image).width(720).height(540).fit("crop").auto("format").url()}
+                  alt={p.name}
+                  width={720}
+                  height={540}
+                  sizes="(min-width:768px) 42vw, 100vw"
+                  className="aspect-[4/3] w-full rounded-3xl object-cover shadow-card"
+                />
+              ) : (
+                <ImagePlaceholder
+                  className="aspect-[4/3] w-full"
+                  label={`${p.name} — Escolinha Encantada`}
+                />
+              )}
             </Reveal>
           </Container>
         </Section>

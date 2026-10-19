@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { EnrollmentForm } from "@/components/forms/enrollment-form";
 import { FacebookIcon } from "@/components/media/social-icons";
+import { getPrograms } from "@/sanity/queries";
 
 export const metadata: Metadata = {
   title: "Inscrições e Contactos",
@@ -14,8 +15,9 @@ export const metadata: Metadata = {
     "Inscreva o seu filho ou agende uma visita à Escolinha Encantada, creche e pré-escolar em Coimbra.",
 };
 
-export default function InscricaoPage() {
+export default async function InscricaoPage() {
   const c = site.contact;
+  const programs = await getPrograms();
   const mapQuery = encodeURIComponent(
     `${c.street}, ${c.postalCode} ${c.city}, Portugal`,
   );
@@ -31,7 +33,9 @@ export default function InscricaoPage() {
             agendar uma visita à escola.
           </p>
           <Card className="mt-8">
-            <EnrollmentForm />
+            <EnrollmentForm
+              programs={programs.map((p) => ({ slug: p.slug, name: p.name }))}
+            />
           </Card>
         </div>
 

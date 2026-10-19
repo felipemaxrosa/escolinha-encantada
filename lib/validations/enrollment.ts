@@ -1,7 +1,5 @@
 import { z } from "zod";
 
-export const PROGRAMS = ["bercario", "creche", "pre-escolar"] as const;
-
 export const enrollmentSchema = z.object({
   childName: z.string().min(2, "Indique o nome da criança.").max(80),
   birthDate: z
@@ -11,7 +9,7 @@ export const enrollmentSchema = z.object({
       const d = new Date(s);
       return !Number.isNaN(d.getTime()) && d.getTime() <= Date.now();
     }, "Data inválida ou no futuro."),
-  program: z.enum(PROGRAMS),
+  program: z.string().min(1, "Indique o programa pretendido."),
   guardianName: z.string().min(2, "Indique o seu nome.").max(80),
   email: z.email("Email inválido."),
   phone: z

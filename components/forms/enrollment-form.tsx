@@ -17,7 +17,11 @@ import { Button } from "@/components/ui/button";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-export function EnrollmentForm() {
+export function EnrollmentForm({
+  programs,
+}: {
+  programs: { slug: string; name: string }[];
+}) {
   const [status, setStatus] = useState<Status>("idle");
   const {
     register,
@@ -116,9 +120,11 @@ export function EnrollmentForm() {
         error={errors.program?.message}
       >
         <Select id="program" {...register("program")}>
-          <option value="bercario">Berçário</option>
-          <option value="creche">Creche</option>
-          <option value="pre-escolar">Pré-escolar</option>
+          {programs.map((p) => (
+            <option key={p.slug} value={p.slug}>
+              {p.name}
+            </option>
+          ))}
         </Select>
       </Field>
 
