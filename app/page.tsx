@@ -9,18 +9,19 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { StoryVideo } from "@/components/sections/story-video";
 import { JsonLd } from "@/components/json-ld";
 import { faqJsonLd } from "@/lib/seo";
-import { getGallery, getHero, getAboutVideo } from "@/sanity/queries";
+import { getGallery, getHero, getAboutVideo, getFaqs } from "@/sanity/queries";
 import { home } from "@/content/home";
 
 export default async function HomePage() {
-  const [gallery, hero, aboutVideo] = await Promise.all([
+  const [gallery, hero, aboutVideo, faqs] = await Promise.all([
     getGallery(),
     getHero(),
     getAboutVideo(),
+    getFaqs(),
   ]);
   return (
     <>
-      <JsonLd data={faqJsonLd()} />
+      <JsonLd data={faqJsonLd(faqs)} />
       <Hero
         eyebrow={home.hero.eyebrow}
         title={hero?.heading || home.hero.title}
@@ -32,7 +33,7 @@ export default async function HomePage() {
       <MethodologyTeaser />
       <GalleryTeaser images={gallery} />
       <Testimonials />
-      <Faq />
+      <Faq items={faqs} />
       {aboutVideo?.youtubeUrl && (
         <StoryVideo
           url={aboutVideo.youtubeUrl}

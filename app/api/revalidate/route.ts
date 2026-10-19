@@ -6,6 +6,7 @@ import type { NextRequest } from "next/server";
 const PATHS_BY_TYPE: Record<string, string[]> = {
   homeHero: ["/"],
   aboutVideo: ["/"],
+  faqItem: ["/"],
   galleryImage: ["/galeria", "/"],
   teamMember: ["/equipa"],
   facility: ["/instalacoes"],

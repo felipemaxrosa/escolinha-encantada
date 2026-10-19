@@ -18,4 +18,5 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem("teamMember").title("Equipa"),
       S.documentTypeListItem("facility").title("Instalações"),
       S.documentTypeListItem("testimonial").title("Depoimentos"),
+      S.documentTypeListItem("faqItem").title("FAQ"),
     ]);

@@ -2,6 +2,7 @@ import { groq } from "next-sanity";
 import { client } from "./client";
 import { hasSanity } from "./env";
 import type { ImageSource } from "./image";
+import { faq as faqFallback } from "@/content/faq";
 
 export interface GalleryItem {
   _id: string;
@@ -45,6 +46,10 @@ export interface AboutVideo {
   caption?: string;
   poster?: ImageSource;
 }
+export interface FaqEntry {
+  question: string;
+  answer: string;
+}
 
 /**
  * Fetch resiliente: devolve `fallback` se o Sanity não estiver configurado
@@ -82,6 +87,15 @@ export function getAboutVideo(): Promise<AboutVideo | null> {
     ["aboutVideo"],
     null,
   );
+}
+
+export async function getFaqs(): Promise<FaqEntry[]> {
+  const items = await safeFetch<FaqEntry[]>(
+    groq`*[_type == "faqItem"]|order(order asc){question, answer}`,
+    ["faq"],
+    [],
+  );
+  return items.length ? items : faqFallback;
 }
 
 export function getGallery(): Promise<GalleryItem[]> {

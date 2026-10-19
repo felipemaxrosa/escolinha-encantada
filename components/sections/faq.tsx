@@ -1,5 +1,5 @@
-import { faq } from "@/content/faq";
 import { home } from "@/content/home";
+import type { FaqEntry } from "@/sanity/queries";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import {
@@ -9,7 +9,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export function Faq() {
+export function Faq({ items }: { items: FaqEntry[] }) {
+  if (items.length === 0) return null;
   return (
     <Section>
       <Container className="max-w-3xl">
@@ -23,7 +24,7 @@ export function Faq() {
           collapsible
           className="rounded-3xl bg-surface px-6 shadow-card md:px-8"
         >
-          {faq.map((item, i) => (
+          {items.map((item, i) => (
             <AccordionItem key={i} value={`faq-${i}`}>
               <AccordionTrigger>{item.question}</AccordionTrigger>
               <AccordionContent>{item.answer}</AccordionContent>

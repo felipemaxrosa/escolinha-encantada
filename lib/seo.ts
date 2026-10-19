@@ -1,5 +1,4 @@
 import { site } from "@/content/site";
-import { faq } from "@/content/faq";
 
 export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://escolinha-encantada.vercel.app";
@@ -39,11 +38,11 @@ export function webSiteJsonLd() {
 }
 
 /** JSON-LD de FAQ — elegível a rich result nas pesquisas. */
-export function faqJsonLd() {
+export function faqJsonLd(items: { question: string; answer: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faq.map((item) => ({
+    mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: { "@type": "Answer", text: item.answer },
