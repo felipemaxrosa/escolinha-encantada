@@ -241,6 +241,8 @@
     border-radius: 999px;
   }
   .plan .pname { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; }
+  .plan .amount-wrap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.55rem; }
+  .plan .amount-old { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.3rem, 3vw, 1.7rem); color: var(--ink-soft); text-decoration: line-through; opacity: 0.7; line-height: 1; }
   .plan .amount { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.1rem, 5vw, 2.9rem); color: var(--primary); line-height: 1; }
   .plan .per { font-size: 0.98rem; font-weight: 600; color: var(--ink-soft); margin-top: 0.35rem; }
   .plan-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
@@ -398,7 +400,10 @@
         <span class="ribbon">Recomendado</span>
         <div class="pname">Com acompanhamento</div>
         <div>
-          <div class="amount">1.000&nbsp;€</div>
+          <div class="amount-wrap">
+            <span class="amount-old">1.000&nbsp;€</span>
+            <span class="amount">750&nbsp;€</span>
+          </div>
           <div class="per">+ 35&nbsp;€/mês</div>
         </div>
         <ul class="plan-list">
@@ -414,7 +419,10 @@
       <div class="plan">
         <div class="pname">Entrega única</div>
         <div>
-          <div class="amount">1.250&nbsp;€</div>
+          <div class="amount-wrap">
+            <span class="amount-old">1.250&nbsp;€</span>
+            <span class="amount">900&nbsp;€</span>
+          </div>
           <div class="per">pagamento único</div>
         </div>
         <ul class="plan-list">
