@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // Política de lembretes de upgrade do agente: avisa quando a versão
+    // instalada tem um aviso de segurança publicado.
+    agentUpgrade: "security",
+  },
   images: {
     remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
   },
